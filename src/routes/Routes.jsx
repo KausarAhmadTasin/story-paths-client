@@ -4,6 +4,9 @@ import Home from "../layouts/Home/Home";
 import Stories from "../layouts/Stories/Stories";
 import Write from "../layouts/Write/Write";
 import MyStories from "../layouts/MyStories/MyStories";
+import Login from "../layouts/Login/Login";
+import Register from "../layouts/Register/Register";
+import PrivateRoutes from "./PrivateRoutes";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +23,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/write",
-        element: <Write />,
+        element: (
+          <PrivateRoutes>
+            <Write />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/myStories",
         element: <MyStories />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

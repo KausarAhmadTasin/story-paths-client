@@ -2,7 +2,7 @@ import Hero from "../../components/Hero/Hero";
 
 const Home = () => {
   return (
-    <div className="container pt-10 mx-auto">
+    <div className="md:container pt-10 md:mx-auto mx-2 min-h-screen">
       <Hero />
       {/* 
       ----------- stories --------------

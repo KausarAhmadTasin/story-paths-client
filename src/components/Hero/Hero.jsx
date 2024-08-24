@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="my-6 relative rounded-xl">
+    <div className="md:my-6 my-8 relative rounded-xl">
       {/* Background image */}
       <div className="absolute inset-0 rounded-xl">
         <img
-          src="https://i.ibb.co/DDfTnmH/nong-9pw4-TKv-T3po-unsplash-1.jpg"
+          src="https://i.ibb.co/Dkk8tV2/nong-9pw4-TKv-T3po-unsplash-1.jpg"
           alt=""
           className="w-full h-full object-cover rounded-xl"
         />
@@ -15,8 +15,8 @@ const Hero = () => {
       </div>
       {/* Overlay content */}
       <div className="relative flex flex-col items-center justify-center h-full text-white py-14">
-        <div className="flex flex-col md:flex-row rounded-xl px-10 mb-10 items-center">
-          <div className="md:w-1/2 mb-6 md:mb-0">
+        <div className="flex flex-col lg:flex-row rounded-xl md:px-5 lg:px-10 px-10 mb-10 items-center">
+          <div className="lg:w-1/2 mb-6 md:mb-0">
             <h1 className="text-4xl font-bold mb-2 text-white">
               Welcome to StoryPaths
             </h1>
@@ -29,8 +29,8 @@ const Hero = () => {
             </ul>
           </div>
 
-          <div className="md:w-1/2">
-            <p className="font-semibold">
+          <div className="lg:w-1/2">
+            <p className="font-semibold mt-0 md:mt-8 lg:mt-0">
               StoryPaths is an interactive storytelling platform that lets you
               immerse yourself in tales where your choices shape the narrative.
               Whether you’re here to explore stories or create your own, every
