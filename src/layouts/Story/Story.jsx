@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Helmet } from "react-helmet";
 import { useLoaderData } from "react-router-dom";
 
@@ -10,23 +10,66 @@ const Story = () => {
   const [thirdBranch, setThirdBranch] = useState(null);
   const [thirdBranchName, setThirdBranchName] = useState("");
 
+  const startTime = useRef(null);
+
+  // Memoize trackTimeSpent with useCallback
+  const trackTimeSpent = useCallback(
+    (branchName) => {
+      const endTime = Date.now();
+      const timeSpent = Math.floor((endTime - startTime.current) / 1000);
+      console.log(`Tracking time for ${branchName}: ${timeSpent} seconds`); // Debug log
+      axios
+        .post(`http://localhost:5000/api/stories/${story._id}/updateTime`, {
+          branchName,
+          timeSpent,
+        })
+        .then(() => {
+          console.log(`Time tracked for ${branchName}`);
+        })
+        .catch((err) =>
+          console.log(`Error tracking time for ${branchName}:`, err)
+        );
+      startTime.current = endTime;
+    },
+    [story._id]
+  ); // Add dependencies if needed
+
+  useEffect(() => {
+    // Initialize start time when the component mounts
+    startTime.current = Date.now();
+    console.log("Component mounted, starting timer");
+
+    // Track time spent on first branch
+    return () => {
+      console.log("Component unmounting, tracking time for branch_1");
+      trackTimeSpent("branch_1");
+    };
+  }, [trackTimeSpent]);
+
   const handleFirstChoiceClick = (firstChoice) => {
+    console.log(`First choice selected: ${firstChoice}`);
+    trackTimeSpent("branch_1");
     setSecondBranchName(firstChoice);
     axios
       .get(
         `http://localhost:5000/api/stories/${story._id}?branch=${firstChoice}`
       )
       .then((result) => {
+        console.log("Second branch data received:", result.data);
         setSecondBranch(result.data);
         setThirdBranch(null);
+        startTime.current = Date.now(); // Reset start time for the second branch
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error fetching second branch:", err);
       });
   };
 
   const handleSecondChoiceClick = (secondChoice) => {
     const branchName = `branch_${secondChoice.split("_").slice(1).join("_")}`;
+    console.log(`Second choice selected: ${secondChoice}`);
+    trackTimeSpent(secondBranchName); // Track time for the second branch
+
     setThirdBranchName(branchName);
 
     axios
@@ -34,24 +77,48 @@ const Story = () => {
         `http://localhost:5000/api/stories/${story._id}?branch=${branchName}`
       )
       .then((result) => {
+        console.log("Third branch data received:", result.data);
         setThirdBranch(result.data);
+        startTime.current = Date.now(); // Reset start time for the third branch
+
+        // If the third branch has no choices, track time immediately
+        if (!result.data.layers[branchName].choices) {
+          console.log(
+            `No choices in third branch: ${branchName}, tracking time immediately`
+          );
+          trackTimeSpent(branchName);
+        }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error fetching third branch:", err);
       });
   };
 
+  useEffect(() => {
+    // Track time when the component unmounts or the user navigates away from the third branch
+    return () => {
+      if (thirdBranchName) {
+        console.log(
+          `Component unmounting, tracking time for ${thirdBranchName}`
+        );
+        trackTimeSpent(thirdBranchName);
+      }
+    };
+  }, [thirdBranchName, trackTimeSpent]);
+
   return (
-    <div className="min-h-screen pt-16 pb-10 bg-gradient-to-br from-amber-200 via-purple-100 to-indigo-400">
+    <div className="min-h-screen pt-16 pb-10 bg-gradient-to-br from-amber-100 via-purple-50 to-indigo-200">
       <Helmet>
         <title>Storypaths | Story</title>
       </Helmet>
-      <div className="container rounded-xl mx-auto my-2 bg-white py-6 shadow-xl">
+
+      <div className="md:container rounded-xl md:mx-auto mx-4 my-2 bg-white py-6 shadow-xl">
         <div className="w-3/4 mx-auto">
-          <h1 className="text-4xl font-extrabold text-center text-gray-800">
+          <h1 className="md:text-4xl text-2xl font-extrabold text-center text-gray-800">
             {story.layers.branch_1?.title}
           </h1>
-          <div className="flex w-1/3 mx-auto my-4 justify-between">
+
+          <div className="flex md:w-1/3 mx-auto my-4 justify-between">
             <p className="font-semibold text-gray-700">
               Author: <span className="font-normal">{story.author}</span>
             </p>
@@ -83,10 +150,14 @@ const Story = () => {
             </p>
           </div>
 
-          {/* Second branch */}
+          {/* 
+          
+                ------  Second branch  ------ 
+          
+          */}
           {secondBranch && (
             <div>
-              <h2 className="text-3xl mt-16 font-bold text-center text-indigo-700">
+              <h2 className="md:text-3xl text-2xl mt-16 font-bold text-center text-indigo-700">
                 {secondBranch.layers[secondBranchName]?.title}
               </h2>
               <p className="font-semibold text-center mt-2 text-gray-700">
@@ -121,10 +192,14 @@ const Story = () => {
             </div>
           )}
 
-          {/* Third branch */}
+          {/* 
+
+                ------ Third branch ------ 
+          
+          */}
           {thirdBranch && (
             <div>
-              <h2 className="text-3xl mt-16 font-bold text-center text-teal-700">
+              <h2 className="md:text-3xl text-2xl mt-16 font-bold text-center text-teal-700">
                 {thirdBranch.layers[thirdBranchName]?.title}
               </h2>
               <p className="font-semibold text-center mt-2 text-gray-700">

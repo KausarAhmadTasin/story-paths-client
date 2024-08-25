@@ -43,7 +43,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center py-24 lg:py-0 lg:min-h-screen items-center bg-gradient-to-br from-pink-200 via-purple-300 to-indigo-400">
+    <div className="flex justify-center py-24 lg:py-0 lg:min-h-screen items-center bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-100">
       <Helmet>
         <title>StoryPaths | Register</title>
       </Helmet>

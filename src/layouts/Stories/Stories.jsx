@@ -6,12 +6,12 @@ const Stories = () => {
   const stories = useLoaderData();
 
   return (
-    <div className="min-h-screen pt-14 pb-10 bg-gradient-to-br from-pink-200 via-purple-300 to-indigo-400">
+    <div className="min-h-screen pt-14 pb-10 px-4 md:px-0 bg-gradient-to-br from-purple-100 to-indigo-200">
       <Helmet>
         <title>Storypaths | Stories</title>
       </Helmet>
       <div className="container mx-auto">
-        <h1 className="text-4xl font-extrabold text-center text-gray-800 mb-8">
+        <h1 className="text-4xl mt-2 font-extrabold text-center text-gray-800 mb-8">
           Stories
         </h1>
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -90,11 +90,12 @@ const Write = () => {
   };
 
   return (
-    <div className="md:mt-16 mt-20 container mb-10 mx-auto min-h-screen">
+    <div className="md:mt-16 mt-20 lg:container mb-10 lg:mx-auto min-h-screen">
       <Helmet>
         <title>Storypaths | Write</title>
       </Helmet>
       <ToastContainer />
+
       <h1 className="text-3xl font-bold text-center mb-7">
         Write an Interactive Story
       </h1>
@@ -186,7 +187,7 @@ const Write = () => {
                 ---------- Layer 2 ------------
 
         */}
-        <div className="flex w-full gap-x-4 justify-between">
+        <div className="flex flex-col md:flex-row w-full gap-x-4 justify-between">
           {/* Level 1.1 */}
           <div className="mb-8 bg-green-50 p-6 rounded-lg shadow-md w-full">
             <h3 className="text-xl text-center font-semibold mb-4 text-gray-700">
@@ -341,7 +342,7 @@ const Write = () => {
                 ---------- Layer 3 ------------
 
         */}
-        <div className="grid grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           {/* Level 1.1.1 */}
           <div className="p-6 border rounded-lg bg-green-50 shadow-md">
             <h4 className="text-lg text-center font-semibold mb-4 text-gray-700">

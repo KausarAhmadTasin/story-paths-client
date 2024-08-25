@@ -6,7 +6,7 @@ const HomeStories = ({ stories }) => {
   return (
     <div>
       {/* Read Stories Section */}
-      <section className="mt-20 bg-amber-50 px-4 py-8 rounded-lg">
+      <section className="mt-20 shadow-md bg-indigo-50 px-4 py-8 rounded-lg">
         <h1 className="text-3xl text-center font-bold mb-8">Read Stories</h1>
         <p className="text-center text-gray-700 mb-8">
           Dive into our collection of engaging stories. Whether you&apos;re
@@ -23,7 +23,7 @@ const HomeStories = ({ stories }) => {
                 key={story._id}
               >
                 <h2 className="text-center font-bold text-xl text-indigo-700 mb-4">
-                  {story.layers.branch_1.title}
+                  {story.layers?.branch_1?.title || "Untitled"}
                 </h2>
                 <div className="flex justify-between text-gray-700 mb-4">
                   <p className="font-semibold">
@@ -32,12 +32,12 @@ const HomeStories = ({ stories }) => {
                   <p className="font-semibold">
                     Views:{" "}
                     <span className="font-normal">
-                      {story.layers.branch_1.views}
+                      {story.layers?.branch_1?.views || 0}
                     </span>
                   </p>
                 </div>
                 <p className="text-gray-700 fleg mb-6">
-                  {story.layers.branch_1.storyLine}
+                  {story.layers?.branch_1?.storyLine || "No story available"}
                 </p>
                 <Link to={`stories/${story._id}`}>
                   <p className="flex justify-end items-center gap-2 text-purple-600 font-semibold hover:text-purple-800 cursor-pointer transform hover:-translate-y-1 transition-transform duration-200">
@@ -51,7 +51,7 @@ const HomeStories = ({ stories }) => {
         <div className="flex justify-center mt-8">
           <a
             href="/stories"
-            className="bg-green-500 font-medium hover:bg-green-600 text-white px-6 py-3 rounded shadow-md"
+            className="bg-purple-500 font-medium hover:bg-purple-600 text-white px-6 py-3 rounded shadow-md"
           >
             Explore Stories
           </a>
@@ -62,7 +62,20 @@ const HomeStories = ({ stories }) => {
 };
 
 HomeStories.propTypes = {
-  stories: PropTypes.array,
+  stories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      author: PropTypes.string.isRequired,
+      author_email: PropTypes.string.isRequired,
+      layers: PropTypes.shape({
+        branch_1: PropTypes.shape({
+          title: PropTypes.string,
+          storyLine: PropTypes.string,
+          views: PropTypes.number,
+        }),
+      }),
+    })
+  ).isRequired,
 };
 
 export default HomeStories;

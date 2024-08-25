@@ -2,7 +2,7 @@ const HomeCallToAction = () => {
   return (
     <div>
       {/* Call to Action Section */}
-      <section className="mt-20 bg-indigo-400 my-10 rounded-md text-white py-10">
+      <section className="mt-20 bg-indigo-300 my-10 rounded-md text-white py-10">
         <h2 className="text-3xl text-center font-bold mb-8">Join Us Today</h2>
         <p className="text-center mb-8">
           Become a part of the StoryPaths community and start exploring stories

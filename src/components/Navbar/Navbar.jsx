@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full fixed top-0 z-10 flex justify-between items-center py-2 px-6 bg-indigo-900 shadow-lg">
+    <nav className="w-full fixed top-0 z-10 flex justify-between items-center py-2 px-6 bg-[#292e58] shadow-lg">
       <Link to="/">
         <h3 className="text-2xl cursor-pointer font-bold text-white">
           StoryPaths
@@ -36,17 +36,23 @@ const Navbar = () => {
           <>
             <p
               onClick={handlLogOut}
-              className="hover:text-gray-300 transition-colors cursor-pointer"
+              className="hover:text-gray-300 text-base transition-colors cursor-pointer"
             >
               Logout
             </p>
           </>
         ) : (
-          <Link to="/login" className="hover:text-gray-300 transition-colors">
+          <Link
+            to="/login"
+            className="hover:text-gray-300 text-base transition-colors"
+          >
             Login
           </Link>
         )}
-        <Link to="/register" className="hover:text-gray-300 transition-colors">
+        <Link
+          to="/register"
+          className="hover:text-gray-300 text-base transition-colors"
+        >
           Register
         </Link>
       </div>
