@@ -3,6 +3,7 @@ import { AuthContext } from "../../provider/AuthContext";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Helmet } from "react-helmet";
 
 const Write = () => {
   const { user } = useContext(AuthContext);
@@ -90,6 +91,9 @@ const Write = () => {
 
   return (
     <div className="md:mt-16 mt-20 container mb-10 mx-auto min-h-screen">
+      <Helmet>
+        <title>Storypaths | Write</title>
+      </Helmet>
       <ToastContainer />
       <h1 className="text-3xl font-bold text-center mb-7">
         Write an Interactive Story

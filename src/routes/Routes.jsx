@@ -8,15 +8,18 @@ import Login from "../layouts/Login/Login";
 import Register from "../layouts/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
 import Story from "../layouts/Story/Story";
+import NotFound from "../layouts/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("http://localhost:5000/api/stories"),
       },
       {
         path: "/stories",

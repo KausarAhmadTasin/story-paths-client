@@ -28,34 +28,30 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center py-24 lg:py-0 lg:min-h-screen items-center bg-[url('https://i.ibb.co/4K1nyzb/seamless-circle-G03-GBB.jpg')] bg-repeat bg-auto">
+    <div className="flex justify-center py-24 lg:py-0 lg:min-h-screen items-center bg-gradient-to-br from-pink-200 via-purple-300 to-indigo-400">
       <Helmet>
-        <title>Storypaths | Login</title>
+        <title>StoryPaths | Login</title>
       </Helmet>
-      <div className="lg:w-1/3 w-11/12 md:w-3/4 border mt-8 border-gray-300 dark:border-gray-600 rounded-md p-6 bg-opacity-80 bg-black">
+      <div className="lg:w-1/3 w-11/12 md:w-3/4 border border-gray-300 rounded-md bg-white bg-opacity-80 p-6 shadow-lg">
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">
-              Email
-            </label>
+            <label className="block text-gray-800 mb-2">Email</label>
             <input
               type="email"
               placeholder="Email"
-              className="w-full px-3 py-2 bg-white text-gray-600 dark:text-gray-300 dark:bg-[#292a2e] border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
               required
               autoFocus
               name="email"
             />
           </div>
-          <div className="mb-2">
-            <label className="block text-gray-700 dark:text-gray-300 mb-2">
-              Password
-            </label>
+          <div className="mb-4">
+            <label className="block text-gray-800 mb-2">Password</label>
             <div className="relative">
               <input
                 type={textPassword ? "text" : "password"}
                 placeholder="Password"
-                className="w-full px-3 py-2 bg-white text-gray-600 dark:text-gray-300 dark:bg-[#292a2e] border border-gray-300 dark:border-gray-600 rounded focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 required
                 name="password"
               />
@@ -67,10 +63,10 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <div className="mb-5">
-            <Link to="/register" className="text-white text-sm">
+          <div className="mb-4">
+            <Link to="/register" className="text-gray-500 text-sm ">
               Don&apos;t have an account?{" "}
-              <span className="hover:underline text-blue-500">Register</span>
+              <span className="text-blue-600 hover:underline">Register</span>
             </Link>
           </div>
           <div>

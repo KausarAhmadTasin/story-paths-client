@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { Helmet } from "react-helmet";
 import { useLoaderData } from "react-router-dom";
 
 const Story = () => {
@@ -42,6 +43,9 @@ const Story = () => {
 
   return (
     <div className="min-h-screen pt-16 pb-10 bg-gradient-to-br from-amber-200 via-purple-100 to-indigo-400">
+      <Helmet>
+        <title>Storypaths | Story</title>
+      </Helmet>
       <div className="container rounded-xl mx-auto my-2 bg-white py-6 shadow-xl">
         <div className="w-3/4 mx-auto">
           <h1 className="text-4xl font-extrabold text-center text-gray-800">
