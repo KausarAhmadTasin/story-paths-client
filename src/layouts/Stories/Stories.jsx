@@ -1,10 +1,9 @@
 import { FaArrowRight } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const Stories = () => {
   const stories = useLoaderData();
-  console.log(stories);
-  console.log(stories[0].layers.branch_1.title);
+
   return (
     <div className="min-h-screen pt-14 pb-10 bg-[url('https://i.ibb.co/4K1nyzb/seamless-circle-G03-GBB.jpg')] bg-repeat bg-auto">
       <div className="container mx-auto">
@@ -30,10 +29,13 @@ const Stories = () => {
                 </p>
               </div>
               <p className="my-4">{story.layers.branch_1.storyLine}</p>
-              <p className="flex justify-end my-1 items-center gap-2 cursor-pointer hover:-translate-y-1 duration-200">
+              <Link to={story._id}>
                 {" "}
-                Read <FaArrowRight />
-              </p>
+                <p className="flex justify-end my-1 items-center gap-2 cursor-pointer hover:-translate-y-1 duration-200">
+                  {" "}
+                  Read <FaArrowRight />
+                </p>
+              </Link>
             </li>
           ))}
         </ul>

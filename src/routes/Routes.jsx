@@ -7,6 +7,7 @@ import MyStories from "../layouts/MyStories/MyStories";
 import Login from "../layouts/Login/Login";
 import Register from "../layouts/Register/Register";
 import PrivateRoutes from "./PrivateRoutes";
+import Story from "../layouts/Story/Story";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,12 @@ const router = createBrowserRouter([
         loader: () => fetch("http://localhost:5000/api/stories"),
       },
       {
+        path: "/stories/:id",
+        element: <Story />,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/api/stories/${params.id}`),
+      },
+      {
         path: "/write",
         element: (
           <PrivateRoutes>
@@ -30,9 +37,14 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+
       {
         path: "/myStories",
-        element: <MyStories />,
+        element: (
+          <PrivateRoutes>
+            <MyStories />
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/login",
