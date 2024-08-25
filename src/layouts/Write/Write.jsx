@@ -75,8 +75,6 @@ const Write = () => {
       },
     };
 
-    console.log(story);
-
     axios
       .post("http://localhost:5000/api/stories", story)
       .then((res) => {

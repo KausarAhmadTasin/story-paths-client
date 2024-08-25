@@ -20,6 +20,7 @@ const router = createBrowserRouter([
       {
         path: "/stories",
         element: <Stories />,
+        loader: () => fetch("http://localhost:5000/api/stories"),
       },
       {
         path: "/write",
