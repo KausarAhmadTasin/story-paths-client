@@ -12,17 +12,18 @@ const Story = () => {
 
   const startTime = useRef(null);
 
-  // Memoize trackTimeSpent with useCallback
   const trackTimeSpent = useCallback(
     (branchName) => {
       const endTime = Date.now();
       const timeSpent = Math.floor((endTime - startTime.current) / 1000);
-      console.log(`Tracking time for ${branchName}: ${timeSpent} seconds`); // Debug log
       axios
-        .post(`http://localhost:5000/api/stories/${story._id}/updateTime`, {
-          branchName,
-          timeSpent,
-        })
+        .post(
+          `https://story-paths-server.vercel.app/api/stories/${story._id}/updateTime`,
+          {
+            branchName,
+            timeSpent,
+          }
+        )
         .then(() => {
           console.log(`Time tracked for ${branchName}`);
         })
@@ -32,33 +33,27 @@ const Story = () => {
       startTime.current = endTime;
     },
     [story._id]
-  ); // Add dependencies if needed
+  );
 
   useEffect(() => {
-    // Initialize start time when the component mounts
     startTime.current = Date.now();
-    console.log("Component mounted, starting timer");
 
-    // Track time spent on first branch
     return () => {
-      console.log("Component unmounting, tracking time for branch_1");
       trackTimeSpent("branch_1");
     };
   }, [trackTimeSpent]);
 
   const handleFirstChoiceClick = (firstChoice) => {
-    console.log(`First choice selected: ${firstChoice}`);
     trackTimeSpent("branch_1");
     setSecondBranchName(firstChoice);
     axios
       .get(
-        `http://localhost:5000/api/stories/${story._id}?branch=${firstChoice}`
+        `https://story-paths-server.vercel.app/api/stories/${story._id}?branch=${firstChoice}`
       )
       .then((result) => {
-        console.log("Second branch data received:", result.data);
         setSecondBranch(result.data);
         setThirdBranch(null);
-        startTime.current = Date.now(); // Reset start time for the second branch
+        startTime.current = Date.now();
       })
       .catch((err) => {
         console.log("Error fetching second branch:", err);
@@ -67,25 +62,19 @@ const Story = () => {
 
   const handleSecondChoiceClick = (secondChoice) => {
     const branchName = `branch_${secondChoice.split("_").slice(1).join("_")}`;
-    console.log(`Second choice selected: ${secondChoice}`);
-    trackTimeSpent(secondBranchName); // Track time for the second branch
+    trackTimeSpent(secondBranchName);
 
     setThirdBranchName(branchName);
 
     axios
       .get(
-        `http://localhost:5000/api/stories/${story._id}?branch=${branchName}`
+        `https://story-paths-server.vercel.app/api/stories/${story._id}?branch=${branchName}`
       )
       .then((result) => {
-        console.log("Third branch data received:", result.data);
         setThirdBranch(result.data);
-        startTime.current = Date.now(); // Reset start time for the third branch
+        startTime.current = Date.now();
 
-        // If the third branch has no choices, track time immediately
         if (!result.data.layers[branchName].choices) {
-          console.log(
-            `No choices in third branch: ${branchName}, tracking time immediately`
-          );
           trackTimeSpent(branchName);
         }
       })
@@ -95,12 +84,8 @@ const Story = () => {
   };
 
   useEffect(() => {
-    // Track time when the component unmounts or the user navigates away from the third branch
     return () => {
       if (thirdBranchName) {
-        console.log(
-          `Component unmounting, tracking time for ${thirdBranchName}`
-        );
         trackTimeSpent(thirdBranchName);
       }
     };

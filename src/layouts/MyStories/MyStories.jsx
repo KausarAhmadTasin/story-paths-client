@@ -11,7 +11,9 @@ const MyStories = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/stories?email=${user?.email}`)
+      .get(
+        `https://story-paths-server.vercel.app/api/stories?email=${user?.email}`
+      )
       .then((res) => {
         setStories(res.data);
       })

@@ -19,18 +19,22 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/api/stories"),
+        loader: () =>
+          fetch("https://story-paths-server.vercel.app/api/stories"),
       },
       {
         path: "/stories",
         element: <Stories />,
-        loader: () => fetch("http://localhost:5000/api/stories"),
+        loader: () =>
+          fetch("https://story-paths-server.vercel.app/api/stories"),
       },
       {
         path: "/stories/:id",
         element: <Story />,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/api/stories/${params.id}`),
+          fetch(
+            `https://story-paths-server.vercel.app/api/stories/${params.id}`
+          ),
       },
       {
         path: "/write",

@@ -19,7 +19,7 @@ const Write = () => {
       author_email: user?.email || "",
       
       layers: {
-        "1": {
+        "branch_1": {
           title: form.title_1.value,
           storyLine: form.story_1.value,
           choices: {
@@ -29,7 +29,7 @@ const Write = () => {
           views: 0,
           timeSpent: 0,
         },
-        "1_1": {  
+        "branch_1_1": {  
           title: form.title_1_1.value,
           storyLine: form.story_1_1.value,
           choices: {
@@ -39,19 +39,19 @@ const Write = () => {
           views: 0,
           timeSpent: 0,
         },
-        "1_1_1": {
+        "branch_1_1_1": {
           title: form.title_1_1_1.value,
           storyLine: form.story_1_1_1.value,
           views: 0,
           timeSpent: 0,
         },
-        "1_1_2": {
+        "branch_1_1_2": {
           title: form.title_1_1_2.value,
           storyLine: form.story_1_1_2.value,
           views: 0,
           timeSpent: 0,
         },
-        "1_2": {
+        "branch_1_2": {
           title: form.title_1_2.value,
           storyLine: form.story_1_2.value,
           choices: {
@@ -61,13 +61,13 @@ const Write = () => {
           views: 0,
           timeSpent: 0,
         },
-        "1_2_1": {
+        "branch_1_2_1": {
           title: form.title_1_2_1.value,
           storyLine: form.story_1_2_1.value,
           views: 0,
           timeSpent: 0,
         },
-        "1_2_2": {
+        "branch_1_2_2": {
           title: form.title_1_2_2.value,
           storyLine: form.story_1_2_2.value,
           views: 0,
@@ -77,7 +77,7 @@ const Write = () => {
     };
 
     axios
-      .post("http://localhost:5000/api/stories", story)
+      .post("https://story-paths-server.vercel.app/api/stories", story)
       .then((res) => {
         if (res.data.insertedId) {
           toast.success("Story Published Successfully!");
